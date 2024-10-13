@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  server:
+    container_name: server
+    build:
+      context: ./ 
+      dockerfile: Dockerfile  
+    ports:
+      - '80:5000'  
+    volumes:
+      - .:/usr/src/app  
+    environment:
+      - FLASK_ENV=development
+      - DATABASE_URL=postgresql://satish:1234@db:5432/ml_website1  # Use environment variable for DB URL
+    depends_on:
+      - db  # Ensures that the Flask app waits for the database service
+    networks:
+      - network  
+   
+  db:
+    image: postgres:13  # Use the official PostgreSQL image
+    environment:
+      POSTGRES_DB: ml_website1  # Name of the database to create
+      POSTGRES_USER: satish  # Username for PostgreSQL
+      POSTGRES_PASSWORD: 1234  # Password for PostgreSQL
+    volumes:
+      - pg_data:/var/lib/postgresql/data  # Persist PostgreSQL data
+    networks:
+      - network
+      
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com  # Default login email for pgAdmin
+      PGADMIN_DEFAULT_PASSWORD: admin         # Default login password for pgAdmin
+    ports:
+      - "8080:80"                             # Expose pgAdmin on port 8080
+    depends_on:
+      - db
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge  
+
+volumes:
+  pg_data: 

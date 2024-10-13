@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+.customDivShadows {
+    box-shadow: 2px 4px 120px -29px rgba(222, 247, 28, 0.6);
+    -webkit-box-shadow: 2px 4px 120px -29px rgba(222, 247, 28, 0.6);
+    -moz-box-shadow: 2px 4px 120px -29px rgba(222, 247, 28, 0.6);
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+    /* For Chrome, Safari, and Opera */
+}
+
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    /* For Internet Explorer and Edge */
+    scrollbar-width: none;
+    /* For Firefox */
+}
